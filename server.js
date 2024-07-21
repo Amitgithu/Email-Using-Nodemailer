@@ -9,9 +9,9 @@ app.get("/", (req, res) => {
     res.send('<h2>Server connected</h2>');
 });
 
-// Define the /helo route to send an email
-app.get('/helo', (req, res) => {
-    console.log("Endpoint '/helo' hit");
+// Define the /sendEmail route to send an email
+app.get('/sendEmail', (req, res) => {
+    console.log("Endpoint '/sendEmail' hit");
 
     // Fetch the contact email from environment variables
     const contactEmail = process.env.CONTACT_EMAIL;
@@ -23,16 +23,12 @@ app.get('/helo', (req, res) => {
     res.send("Email sent successfully");
 });
 
-// Define the /test route
-app.get("/test", (req, res) => {
-    res.send('<h1>hello</h1>');
-});
 
 // Function to send an email
-const sendMail = async (name, dec, email) => {
+const sendMail = async (name, description, email) => {
     try {
         // Log the email details to the console
-        console.log(name, dec, email);
+        console.log(name, description, email);
 
         // Create a transporter object using SMTP transport
         let transporter = nodemailer.createTransport({
@@ -61,7 +57,7 @@ const sendMail = async (name, dec, email) => {
                         <h2 style="color: #007bff;">Notification</h2>
                         <p style="color: #495057;">Dear User,</p>
                         <p style="color: #495057;">The item you provided has been matched name: <strong style="color: #007bff;">${name}</strong></p>
-                        <p style="color: #495057;">Description: <strong style="color: #007bff;">${dec}</strong></p>
+                        <p style="color: #495057;">Description: <strong style="color: #007bff;">${description}</strong></p>
                         <p style="color: #495057;">Visit Lost and Found Portal.</p>
                         <p style="color: #495057;">Thank you for using our service!</p>
                         <hr style="border: 1px solid #007bff;">
